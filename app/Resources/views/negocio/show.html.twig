@@ -1,0 +1,80 @@
+{% extends 'EuBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Negocio</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ negocio.id }}</td>
+            </tr>
+            <tr>
+                <th>Negocionombre</th>
+                <td>{{ negocio.negocioNombre }}</td>
+            </tr>
+            <tr>
+                <th>Negociodomicilio</th>
+                <td>{{ negocio.negocioDomicilio }}</td>
+            </tr>
+            <tr>
+                <th>Negociotelefono</th>
+                <td>{{ negocio.negocioTelefono }}</td>
+            </tr>
+            <tr>
+                <th>Negociocelular</th>
+                <td>{{ negocio.negocioCelular }}</td>
+            </tr>
+            <tr>
+                <th>Negocioemail</th>
+                <td>{{ negocio.negocioEmail }}</td>
+            </tr>
+            <tr>
+                <th>Negocionomduenio</th>
+                <td>{{ negocio.negocioNomDuenio }}</td>
+            </tr>
+            <tr>
+                <th>Negociogpslatitud</th>
+                <td>{{ negocio.negocioGpsLatitud }}</td>
+            </tr>
+            <tr>
+                <th>Negociogpslongitud</th>
+                <td>{{ negocio.negocioGpsLongitud }}</td>
+            </tr>
+            <tr>
+                <th>Negociofoto</th>
+                <td>{{ negocio.negocioFoto }}</td>
+            </tr>
+            <tr>
+                <th>Negociofecregistro</th>
+                <td>{% if negocio.negocioFecRegistro %}{{ negocio.negocioFecRegistro|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Usucreaid</th>
+                <td>{{ negocio.usuCreaId }}</td>
+            </tr>
+            <tr>
+                <th>Negociofecmod</th>
+                <td>{% if negocio.negocioFecMod %}{{ negocio.negocioFecMod|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Negocioalta</th>
+                <td>{{ negocio.negocioAlta }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('negocio_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('negocio_edit', { 'id': negocio.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

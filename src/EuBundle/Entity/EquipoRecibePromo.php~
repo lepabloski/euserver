@@ -1,0 +1,60 @@
+<?php
+
+namespace EuBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * EquipoRecibePromo
+ *
+ * @ORM\Table(name="equipo_recibe_promo", indexes={@ORM\Index(name="equipo_id", columns={"equipo_id", "promo_id"}), @ORM\Index(name="promo_id", columns={"promo_id"}), @ORM\Index(name="IDX_CCB0E00C23BFBED", columns={"equipo_id"})})
+ * @ORM\Entity
+ */
+class EquipoRecibePromo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fec_recepcion", type="datetime", nullable=false)
+     */
+    private $fecRecepcion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="alta", type="integer", nullable=false)
+     */
+    private $alta;
+
+    /**
+     * @var \Equipo
+     *
+     * @ORM\ManyToOne(targetEntity="Equipo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="equipo_id", referencedColumnName="id")
+     * })
+     */
+    private $equipo;
+
+    /**
+     * @var \Promo
+     *
+     * @ORM\ManyToOne(targetEntity="Promo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="promo_id", referencedColumnName="id")
+     * })
+     */
+    private $promo;
+
+
+}
+

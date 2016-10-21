@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Negocio" table="negocio">
+    <indexes>
+      <index name="negocio_sucu_id" columns="negocio_sucu_id"/>
+      <index name="ciudad_id" columns="ciudad_id"/>
+      <index name="usu_crea_id" columns="usu_crea_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="negocioNombre" type="string" column="negocio_nombre" length="30" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="negocioDomicilio" type="string" column="negocio_domicilio" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="negocioTelefono" type="string" column="negocio_telefono" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="negocioCelular" type="string" column="negocio_celular" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="negocioEmail" type="string" column="negocio_email" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="negocioNomDuenio" type="string" column="negocio_nom_duenio" length="30" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="negocioGpsLatitud" type="string" column="negocio_gps_latitud" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">latitud de la ubicacion del negocio</option>
+      </options>
+    </field>
+    <field name="negocioGpsLongitud" type="string" column="negocio_gps_longitud" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="comment">longitud de la ubicacion del negocio</option>
+      </options>
+    </field>
+    <field name="negocioFoto" type="string" column="negocio_foto" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="negocioFecRegistro" type="date" column="negocio_fec_registro" nullable="false"/>
+    <field name="usuCreaId" type="integer" column="usu_crea_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">usuario que crea el negocio</option>
+      </options>
+    </field>
+    <field name="negocioFecMod" type="datetime" column="negocio_fec_mod" nullable="false"/>
+    <field name="negocioAlta" type="integer" column="negocio_alta" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <many-to-one field="ciudad" target-entity="Ciudad" fetch="LAZY">
+      <join-columns>
+        <join-column name="ciudad_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="negocioSucu" target-entity="Negocio" fetch="LAZY">
+      <join-columns>
+        <join-column name="negocio_sucu_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
