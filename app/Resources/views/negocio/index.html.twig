@@ -1,50 +1,52 @@
 {% extends 'EuBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="row text-center" >
-        <h1>Negocios</h1>
-    </div>
-    <br />
-    <div class="table-responsive" >
-        <table id="grilla" class="table table-striped tablesorter table-no-bordered"
-               data-toggle="table"
-               data-pagination="true"
-               data-search="true"
-               data-url="data2.json"
-               data-page-size="15"
-               data-page-list="[10, 25, 50, TODOS]"
-               >
-            <thead>
-                <tr>
-                    <th class="text-center" data-field="Negocio" data-sortable="true">Negocio</th>
-                    <th class="text-center" data-field="Domicilio" data-sortable="true">Domicilio</th>                
-                    <th class="text-center" data-field="Duenio" data-sortable="true">Dueño</th>               
-                    <th class="text-center" data-field="Opciones" data-sortable="true">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for negocio in negocios %}
+    <div class="container">
+        <div class="row text-center" >
+            <h1>Negocios</h1>
+        </div>
+        <br />
+        <div class="table-responsive" >
+            <table id="grilla" class="table table-striped tablesorter table-no-bordered"
+                   data-toggle="table"
+                   data-pagination="true"
+                   data-search="true"
+                   data-url="data2.json"
+                   data-page-size="15"
+                   data-page-list="[10, 25, 50, TODOS]"
+                   >
+                <thead>
                     <tr>
-
-                        <td class="text-left">{{ negocio.negocioNombre }}</td>
-                        <td class="text-center">{{ negocio.negocioDomicilio }}</td>                        
-                        <td class="text-center">{{ negocio.negocioNomDuenio }}</td>                        
-                        <td class="text-center">
-
-                            <a class="btn btn-warning" href="{{ path('negocio_show', { 'id': negocio.id }) }}">Detalles</a> 
-
-                            <a class="btn btn-danger"  href="{{ path('negocio_edit', { 'id': negocio.id }) }}">Editar</a>
-
-                        </td>
+                        <th class="text-center" data-field="Negocio" data-sortable="true">Negocio</th>
+                        <th class="text-center" data-field="Domicilio" data-sortable="true">Domicilio</th>                
+                        <th class="text-center" data-field="Duenio" data-sortable="true">Dueño</th>               
+                        <th class="text-center" data-field="Opciones" data-sortable="true">Opciones</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <br />
-    <div class="row text-center">
+                </thead>
+                <tbody>
+                    {% for negocio in negocios %}
+                        <tr>
 
-        <a class="btn btn-success"  href="{{ path('negocio_new') }}">Crear un nuevo negocio</a>
+                            <td class="text-left">{{ negocio.negocioNombre }}</td>
+                            <td class="text-center">{{ negocio.negocioDomicilio }}</td>                        
+                            <td class="text-center">{{ negocio.negocioNomDuenio }}</td>                        
+                            <td class="text-center">
 
+                                <a class="btn btn-warning" href="{{ path('negocio_show', { 'id': negocio.id }) }}">Detalles</a> 
+
+                                <a class="btn btn-danger"  href="{{ path('negocio_edit', { 'id': negocio.id }) }}">Editar</a>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <div class="row text-center">
+
+            <a class="btn btn-success"  href="{{ path('negocio_new') }}">Crear un nuevo negocio</a>
+
+        </div>
     </div>
 {% endblock %}

@@ -1,82 +1,83 @@
 {% extends 'EuBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="row text-center" >
-        <h1>Negocio</h1>
+    <div class="container">
+        <div class="row text-center" >
+            <h1>Negocio</h1>
+        </div>
+
+        <br />
+        <div class="table-responsive" >
+            <table id="grilla" class="table table-striped tablesorter table-no-bordered"
+                   data-toggle="table"
+                   data-pagination="true"
+                   data-search="true"
+                   data-url="data2.json"
+                   data-page-size="15"
+                   data-page-list="[10, 25, 50, TODOS]"
+                   >
+                <tbody>
+
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ negocio.negocioNombre }}</td>
+                    </tr>
+                    <tr>
+                        <th>Domicilio</th>
+                        <td>{{ negocio.negocioDomicilio }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefono</th>
+                        <td>{{ negocio.negocioTelefono }}</td>
+                    </tr>
+                    <tr>
+                        <th>Celular</th>
+                        <td>{{ negocio.negocioCelular }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ negocio.negocioEmail }}</td>
+                    </tr>
+                    <tr>
+                        <th>Dueño</th>
+                        <td>{{ negocio.negocioNomDuenio }}</td>
+                    </tr>
+                    <tr>
+                        <th>Latitud</th>
+                        <td>{{ negocio.negocioGpsLatitud }}</td>
+                    </tr>
+                    <tr>
+                        <th>Longitud</th>
+                        <td>{{ negocio.negocioGpsLongitud }}</td>
+                    </tr>
+                    <tr>
+                        <th>Foto</th>
+                        <td>{{ negocio.negocioFoto }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha Registro</th>
+                        <td>{% if negocio.negocioFecRegistro %}{{ negocio.negocioFecRegistro|date('d/m/Y') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Usuario creador</th>
+                        <td>{{ negocio.usuCreaId }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Estado</th>
+                        <td>{{ negocio.negocioAlta }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <div class="row text-center">
+
+            <a class="btn btn-info" href="{{ path('negocio_index') }}">Volver a la lista</a>
+            <a class="btn btn-warning" href="{{ path('negocio_edit', { 'id': negocio.id }) }}">Editar</a>
+            {{ form_start(delete_form) }}
+            <input type="submit" class="btn btn-danger" value="Borrar">
+            {{ form_end(delete_form) }}
+        </div>
     </div>
-
-    <br />
-    <div class="table-responsive" >
-        <table id="grilla" class="table table-striped tablesorter table-no-bordered"
-               data-toggle="table"
-               data-pagination="true"
-               data-search="true"
-               data-url="data2.json"
-               data-page-size="15"
-               data-page-list="[10, 25, 50, TODOS]"
-               >
-            <tbody>
-
-                <tr>
-                    <th>Nombre</th>
-                    <td>{{ negocio.negocioNombre }}</td>
-                </tr>
-                <tr>
-                    <th>Domicilio</th>
-                    <td>{{ negocio.negocioDomicilio }}</td>
-                </tr>
-                <tr>
-                    <th>Telefono</th>
-                    <td>{{ negocio.negocioTelefono }}</td>
-                </tr>
-                <tr>
-                    <th>Celular</th>
-                    <td>{{ negocio.negocioCelular }}</td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>{{ negocio.negocioEmail }}</td>
-                </tr>
-                <tr>
-                    <th>Dueño</th>
-                    <td>{{ negocio.negocioNomDuenio }}</td>
-                </tr>
-                <tr>
-                    <th>Latitud</th>
-                    <td>{{ negocio.negocioGpsLatitud }}</td>
-                </tr>
-                <tr>
-                    <th>Longitud</th>
-                    <td>{{ negocio.negocioGpsLongitud }}</td>
-                </tr>
-                <tr>
-                    <th>Foto</th>
-                    <td>{{ negocio.negocioFoto }}</td>
-                </tr>
-                <tr>
-                    <th>Fecha Registro</th>
-                    <td>{% if negocio.negocioFecRegistro %}{{ negocio.negocioFecRegistro|date('d/m/Y') }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Usuario creador</th>
-                    <td>{{ negocio.usuCreaId }}</td>
-                </tr>
-
-                <tr>
-                    <th>Estado</th>
-                    <td>{{ negocio.negocioAlta }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <br />
-    <div class="row text-center">
-
-        <a class="btn btn-info" href="{{ path('negocio_index') }}">Volver a la lista</a>
-        <a class="btn btn-warning" href="{{ path('negocio_edit', { 'id': negocio.id }) }}">Editar</a>
-        {{ form_start(delete_form) }}
-        <input type="submit" class="btn btn-danger" value="Borrar">
-        {{ form_end(delete_form) }}
-    </div>
-
 {% endblock %}
