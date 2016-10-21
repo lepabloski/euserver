@@ -1,0 +1,56 @@
+{% extends 'EuBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row text-center" >
+        <h1>Promo</h1>
+    </div>
+
+    <br />
+    <div class="table-responsive" >
+        <table id="grilla" class="table table-striped tablesorter table-no-bordered"
+               data-toggle="table"
+               data-pagination="true"
+               data-search="true"
+               data-url="data2.json"
+               data-page-size="15"
+               data-page-list="[10, 25, 50, TODOS]"
+               >
+            <tbody>
+                <tr>
+                    <th>Título</th>
+                    <td>{{ promo.promoTitulo }}</td>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>{{ promo.promoDescrip }}</td>
+                </tr>
+
+                <tr>
+                    <th>Precio</th>
+                    <td>{{ promo.promoPrecio }}</td>
+                </tr>
+                <tr>
+                    <th>Descuento</th>
+                    <td>{{ promo.promoDescuento }}</td>
+                </tr>
+                <tr>
+                    <th>Estado</th>
+                    <td>{{ promo.promoAlta }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div class="row text-center">
+
+        <a class="btn btn-info" href="{{ path('promo_index') }}">Volver a la lista</a>
+        <a class="btn btn-warning" href="{{ path('promo_edit', { 'id': promo.id }) }}">Editar</a>
+        {{ form_start(delete_form) }}
+        <input type="submit" class="btn btn-danger" value="Borrar">
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock %}
+
+

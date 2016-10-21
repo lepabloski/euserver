@@ -1,0 +1,26 @@
+{% extends 'EuBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row text-center" >
+        <h1>Editar Promo</h1>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            {{ form_start(edit_form) }}
+            {{ form_widget(edit_form) }}
+            
+            {{ form_end(edit_form) }}
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row text-center">
+
+        <a class="btn btn-info" href="{{ path('promo_index') }}">Volver a la lista</a>
+         {{ form_start(delete_form) }}
+        <input type="submit" class="btn btn-danger" value="Borrar">
+        {{ form_end(delete_form) }}
+    </div>
+{% endblock %}
+

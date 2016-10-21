@@ -1,0 +1,24 @@
+promo_index:
+    path:     /
+    defaults: { _controller: "EuBundle:Promo:index" }
+    methods:  GET
+
+promo_show:
+    path:     /{id}/show
+    defaults: { _controller: "EuBundle:Promo:show" }
+    methods:  GET
+
+promo_new:
+    path:     /new
+    defaults: { _controller: "EuBundle:Promo:new" }
+    methods:  [GET, POST]
+
+promo_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EuBundle:Promo:edit" }
+    methods:  [GET, POST]
+
+promo_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EuBundle:Promo:delete" }
+    methods:  DELETE
