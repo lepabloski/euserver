@@ -9,3 +9,12 @@ eu_homepage:
 eu_promo:
     resource: "@EuBundle/Resources/config/routing/promo.yml"
     prefix:   /promo  
+    
+eu_datos:
+    path:     /eu/{lang}/{uuid}
+    defaults: { _controller: "EuBundle:EU:negocios", uuid:1 } 
+    methods: [GET]
+    requirements:
+#        latitud: "[\w-]+"
+#        longitud: "[\w-]+"       
+        lang: es    
