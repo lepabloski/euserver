@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="EquipoRecibePromo" table="equipo_recibe_promo">
+    <indexes>
+      <index name="equipo_id" columns="equipo_id,promo_id"/>
+      <index name="promo_id" columns="promo_id"/>
+      <index name="IDX_CCB0E00C23BFBED" columns="equipo_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fecRecepcion" type="datetime" column="fec_recepcion" nullable="false">
+      <options>
+        <option name="comment">fecha en que se recibe la promo</option>
+      </options>
+    </field>
+    <field name="alta" type="integer" column="alta" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="promo" target-entity="Promo" fetch="LAZY">
+      <join-columns>
+        <join-column name="promo_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="equipo" target-entity="Equipo" fetch="LAZY">
+      <join-columns>
+        <join-column name="equipo_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

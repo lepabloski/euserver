@@ -1,0 +1,71 @@
+<?php
+
+namespace EuBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Promo
+ *
+ * @ORM\Table(name="promo", indexes={@ORM\Index(name="negocio_id", columns={"negocio_id"})})
+ * @ORM\Entity
+ */
+class Promo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="promo_descrip", type="string", length=140, nullable=false)
+     */
+    private $promoDescrip;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="promo_titulo", type="string", length=30, nullable=true)
+     */
+    private $promoTitulo;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="promo_precio", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $promoPrecio;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="promo_descuento", type="integer", nullable=true)
+     */
+    private $promoDescuento;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="promo_alta", type="integer", nullable=true)
+     */
+    private $promoAlta = '1';
+
+    /**
+     * @var \Negocio
+     *
+     * @ORM\ManyToOne(targetEntity="Negocio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="negocio_id", referencedColumnName="id")
+     * })
+     */
+    private $negocio;
+
+
+}
+

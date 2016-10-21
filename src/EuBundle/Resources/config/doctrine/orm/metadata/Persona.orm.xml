@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Persona" table="persona">
+    <indexes>
+      <index name="IDX_51E5B69B2D1C5D83" columns="usu_id"/>
+      <index name="IDX_51E5B69BE8608214" columns="ciudad_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="persNombre" type="string" column="pers_nombre" length="30" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="persDni" type="string" column="pers_dni" length="15" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="persApellido" type="string" column="pers_apellido" length="30" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="persFecNac" type="date" column="pers_fec_nac" nullable="false"/>
+    <field name="persSexo" type="string" column="pers_sexo" length="10" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="persDomicilio" type="string" column="pers_domicilio" length="60" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="persFechaMod" type="datetime" column="pers_fecha_mod" nullable="false"/>
+    <field name="persAlta" type="integer" column="pers_alta" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <many-to-one field="ciudad" target-entity="Ciudad" fetch="LAZY">
+      <join-columns>
+        <join-column name="ciudad_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="usu" target-entity="Usuario" fetch="LAZY">
+      <join-columns>
+        <join-column name="usu_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

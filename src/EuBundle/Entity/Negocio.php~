@@ -1,0 +1,137 @@
+<?php
+
+namespace EuBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Negocio
+ *
+ * @ORM\Table(name="negocio", indexes={@ORM\Index(name="negocio_sucu_id", columns={"negocio_sucu_id"}), @ORM\Index(name="ciudad_id", columns={"ciudad_id"}), @ORM\Index(name="usu_crea_id", columns={"usu_crea_id"})})
+ * @ORM\Entity
+ */
+class Negocio
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_nombre", type="string", length=30, nullable=false)
+     */
+    private $negocioNombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_domicilio", type="string", length=50, nullable=false)
+     */
+    private $negocioDomicilio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_telefono", type="string", length=30, nullable=true)
+     */
+    private $negocioTelefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_celular", type="string", length=30, nullable=true)
+     */
+    private $negocioCelular;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_email", type="string", length=30, nullable=true)
+     */
+    private $negocioEmail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_nom_duenio", type="string", length=30, nullable=true)
+     */
+    private $negocioNomDuenio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_gps_latitud", type="string", length=50, nullable=true)
+     */
+    private $negocioGpsLatitud;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_gps_longitud", type="string", length=50, nullable=true)
+     */
+    private $negocioGpsLongitud;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="negocio_foto", type="string", length=50, nullable=true)
+     */
+    private $negocioFoto;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="negocio_fec_registro", type="date", nullable=false)
+     */
+    private $negocioFecRegistro;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="usu_crea_id", type="integer", nullable=true)
+     */
+    private $usuCreaId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="negocio_fec_mod", type="datetime", nullable=false)
+     */
+    private $negocioFecMod;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="negocio_alta", type="integer", nullable=true)
+     */
+    private $negocioAlta = '1';
+
+    /**
+     * @var \Negocio
+     *
+     * @ORM\ManyToOne(targetEntity="Negocio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="negocio_sucu_id", referencedColumnName="id")
+     * })
+     */
+    private $negocioSucu;
+
+    /**
+     * @var \Ciudad
+     *
+     * @ORM\ManyToOne(targetEntity="Ciudad")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ciudad_id", referencedColumnName="id")
+     * })
+     */
+    private $ciudad;
+
+
+}
+

@@ -1,0 +1,47 @@
+<?php
+
+namespace EuBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Equipo
+ *
+ * @ORM\Table(name="equipo")
+ * @ORM\Entity
+ */
+class Equipo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="equipo_mac", type="string", length=30, nullable=false)
+     */
+    private $equipoMac;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="equipo_fec_mod", type="datetime", nullable=false)
+     */
+    private $equipoFecMod;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="equipo_alta", type="integer", nullable=false)
+     */
+    private $equipoAlta;
+
+
+}
+

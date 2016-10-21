@@ -1,0 +1,24 @@
+negocio_index:
+    path:     /
+    defaults: { _controller: "EuBundle:Negocio:index" }
+    methods:  GET
+
+negocio_show:
+    path:     /{id}/show
+    defaults: { _controller: "EuBundle:Negocio:show" }
+    methods:  GET
+
+negocio_new:
+    path:     /new
+    defaults: { _controller: "EuBundle:Negocio:new" }
+    methods:  [GET, POST]
+
+negocio_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EuBundle:Negocio:edit" }
+    methods:  [GET, POST]
+
+negocio_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EuBundle:Negocio:delete" }
+    methods:  DELETE

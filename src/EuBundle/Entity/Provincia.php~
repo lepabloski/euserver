@@ -1,0 +1,50 @@
+<?php
+
+namespace EuBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Provincia
+ *
+ * @ORM\Table(name="provincia", indexes={@ORM\Index(name="pais_id", columns={"pais_id"})})
+ * @ORM\Entity
+ */
+class Provincia
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="provincia_nombre", type="string", length=30, nullable=false)
+     */
+    private $provinciaNombre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="provincia_alta", type="integer", nullable=true)
+     */
+    private $provinciaAlta = '1';
+
+    /**
+     * @var \Pais
+     *
+     * @ORM\ManyToOne(targetEntity="Pais")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="pais_id", referencedColumnName="id")
+     * })
+     */
+    private $pais;
+
+
+}
+

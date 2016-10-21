@@ -1,0 +1,7 @@
+eu_negocio:
+    resource: "@EuBundle/Resources/config/routing/negocio.yml"
+    prefix:   /negocio
+
+eu_homepage:
+    path:     /
+    defaults: { _controller: EuBundle:Default:index }
