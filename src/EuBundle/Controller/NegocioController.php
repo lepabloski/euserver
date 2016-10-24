@@ -6,6 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use EuBundle\Entity\Negocio;
 use EuBundle\Form\NegocioType;
+use EuBundle\Entity\Usuario;
+use EuBundle\Entity\User;
+use EuBundle\Entity\NegocioUsuarioAdmin;
 
 /**
  * Negocio controller.
@@ -22,14 +25,21 @@ class NegocioController extends Controller {
 
     public function __construct() {
         $this->fechaHoy = new \DateTime("now");
-
-     
     }
 
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $negocios = $em->getRepository('EuBundle:Negocio')->findAll();
+        $usuario = $em->getRepository('EuBundle:Usuario')->findOneBy(array('fosUser' => $this->getUser()));
+        $negocioUsuario = $em->getRepository('EuBundle:NegocioUsuarioAdmin')->findBy(array('usuario' => $usuario));
+        $negocios = array();
+        if (count($negocioUsuario) != 0) {
+
+            foreach ($negocioUsuario as $negocioUsu) {
+                $negocios[] = $em->getRepository('EuBundle:Negocio')->findOneBy(array('id' => $negocioUsu->getNegocio()));
+            }
+        }
+
 
         return $this->render('negocio/index.html.twig', array(
                     'negocios' => $negocios,
@@ -41,27 +51,34 @@ class NegocioController extends Controller {
      *
      */
     public function newAction(Request $request) {
-        
-           $session = $request->getSession();
-        if ($this->getUser()) {
-            $this->usuario = $this->getUser();
-        } else {
-            $this->usuario = 1;
-        }
-        
+
+        $session = $request->getSession();
+
         $negocio = new Negocio();
-        $form = $this->createForm('EuBundle\Form\NegocioType', $negocio);
+        $form = $this->createForm(NegocioType::class, $negocio);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $negocio->setNegocioFoto('');
             $negocio->setNegocioFecRegistro($this->fechaHoy);
-            $negocio->setUsuCreaId($this->usuario);
+            $negocio->setUsuCreaId($this->getUser());
             $negocio->setNegocioFecMod($this->fechaHoy);
             $negocio->setNegocioAlta(1);
-            
             $em->persist($negocio);
+
+            $userFos = $em->getRepository('EuBundle:User')->findOneBy(array('id' => $this->getUser()));
+
+            $usuario = new Usuario();
+            $usuario->setFosUser($userFos);
+            $usuario->setTipoUsuarioId(2); //usuario Admin Negocio tipo 2
+            $em->persist($usuario);
+
+            $negocioUsuarioAdmin = new NegocioUsuarioAdmin();
+            $negocioUsuarioAdmin->setNegocio($negocio);
+            $negocioUsuarioAdmin->setUsuario($usuario);
+            $em->persist($negocioUsuarioAdmin);
+
             $em->flush();
 
             return $this->redirectToRoute('negocio_show', array('id' => $negocio->getId()));

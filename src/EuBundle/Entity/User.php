@@ -22,6 +22,9 @@ class User extends BaseUser {
 
     public function __construct() {
         parent::__construct();
+        $roles = array();
+        $roles[] = "ROLE_NEGOCIO"; 
+        $this->setRoles($roles);
         // your own logic
     }
 

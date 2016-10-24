@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class EUController extends Controller {
 
     public function indexAction(Request $request) {
-        return $this->render('EuBundle:general:inicio.html.twig', array("deg" => deg2rad(1), "rad" => rad2deg(1)));
+        return $this->render('EuBundle:Eu:index.html.twig', array("deg" => deg2rad(1), "rad" => rad2deg(1)));
     }
 
     public function negociosAction(Request $request, $uuid) {

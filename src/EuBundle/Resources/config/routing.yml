@@ -4,7 +4,7 @@ eu_negocio:
 
 eu_homepage:
     path:     /
-    defaults: { _controller: EuBundle:Default:index }
+    defaults: { _controller: EuBundle:EU:index }
 
 eu_promo:
     resource: "@EuBundle/Resources/config/routing/promo.yml"
