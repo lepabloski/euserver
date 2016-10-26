@@ -19,19 +19,8 @@ class PromoController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $promos = array();
 
-        $usuario = $em->getRepository('EuBundle:Usuario')->findOneBy(array('fosUser' => $this->getUser()));
-        $negociosUsuarioAdmin = $em->getRepository("EuBundle:NegocioUsuarioAdmin")->findBy(array('usuario' => $usuario));
-
-        if (count($negociosUsuarioAdmin) != 0) {
-            foreach ($negociosUsuarioAdmin as $negoUsuAdmin) {
-                $promo = $em->getRepository("EuBundle:Promo")->findOneBy(array('negocio' => $negoUsuAdmin->getNegocio()));
-                if (count($promo) != 0) {
-                    $promos[] = $promo;
-                }
-            }
-        }
+        $promos = $em->getRepository('EuBundle:Promo')->findAll();
 
         return $this->render('promo/index.html.twig', array(
                     'promos' => $promos,
@@ -48,7 +37,7 @@ class PromoController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();            
+            $em = $this->getDoctrine()->getManager();
             $negocio = $em->getRepository("EuBundle:Negocio")->findOneBy(array('id' => $id));
             $promo->setNegocio($negocio);
             $em->persist($promo);

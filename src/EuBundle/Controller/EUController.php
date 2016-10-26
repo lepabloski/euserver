@@ -54,22 +54,24 @@ class EUController extends Controller {
 
             $promocion = $em->getRepository('EuBundle:Promo')->findOneBy(array('negocio' => $nego));
 
-            $negocioDatos["negocioNombre"] = $nego->getNegocioNombre();
-            $negocioDatos["negocioLogo"] = $nego->getNegocioFoto();
-            $negocioDatos["PromoId"] = $promocion->getId();
-            $negocioDatos["PromoTitulo"] = $promocion->getPromoTitulo();
-            $negocioDatos["PromoDescripcion"] = $promocion->getPromoDescrip();
-            $negocioDatos["PromoPrecio"] = $promocion->getPromoPrecio();
+            if ($promocion) {
+                $negocioDatos["negocioNombre"] = $nego->getNegocioNombre();
+                $negocioDatos["negocioLogo"] = $nego->getNegocioFoto();
+                $negocioDatos["PromoId"] = $promocion->getId();
+                $negocioDatos["PromoTitulo"] = $promocion->getPromoTitulo();
+                $negocioDatos["PromoDescripcion"] = $promocion->getPromoDescrip();
+                $negocioDatos["PromoPrecio"] = $promocion->getPromoPrecio();
 
-            $descuento = $promocion->getPromoDescuento();
-            $totalDescuento = $descuento * $promocion->getPromoPrecio() / 100;
-            $negocioDatos["PromoDescuento"] = $totalDescuento;
-            $negocioDatos["NegocioGpsLatitud"] = $nego->getNegocioGpsLatitud();
-            $negocioDatos["NegocioGpsLongitud"] = $nego->getNegocioGpsLongitud();
-            $negocioDatos["Distancia"] = "";
+                $descuento = $promocion->getPromoDescuento();
+                $totalDescuento = $descuento * $promocion->getPromoPrecio() / 100;
+                $negocioDatos["PromoDescuento"] = $totalDescuento;
+                $negocioDatos["NegocioGpsLatitud"] = $nego->getNegocioGpsLatitud();
+                $negocioDatos["NegocioGpsLongitud"] = $nego->getNegocioGpsLongitud();
+                $negocioDatos["Distancia"] = "";
 
 // agrego los datos de la promo al array.
-            $negocioArray[] = $negocioDatos;
+                $negocioArray[] = $negocioDatos;
+            }
 //            }
         }
 
