@@ -9,7 +9,7 @@ promo_show:
     methods:  GET
 
 promo_new:
-    path:     /new
+    path:     /{id}/new
     defaults: { _controller: "EuBundle:Promo:new" }
     methods:  [GET, POST]
 

@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="promo", indexes={@ORM\Index(name="negocio_id", columns={"negocio_id"})})
  * @ORM\Entity
  */
-class Promo
-{
+class Promo {
+
     /**
      * @var integer
      *
@@ -59,22 +59,21 @@ class Promo
     /**
      * @var \Negocio
      *
-     * @ORM\ManyToOne(targetEntity="Negocio")
+     * @ORM\ManyToOne(targetEntity="Negocio", inversedBy="Promo")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="negocio_id", referencedColumnName="id")
      * })
      */
     private $negocio;
-
-
+    
+    
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -85,8 +84,7 @@ class Promo
      *
      * @return Promo
      */
-    public function setPromoDescrip($promoDescrip)
-    {
+    public function setPromoDescrip($promoDescrip) {
         $this->promoDescrip = $promoDescrip;
 
         return $this;
@@ -97,8 +95,7 @@ class Promo
      *
      * @return string
      */
-    public function getPromoDescrip()
-    {
+    public function getPromoDescrip() {
         return $this->promoDescrip;
     }
 
@@ -109,8 +106,7 @@ class Promo
      *
      * @return Promo
      */
-    public function setPromoTitulo($promoTitulo)
-    {
+    public function setPromoTitulo($promoTitulo) {
         $this->promoTitulo = $promoTitulo;
 
         return $this;
@@ -121,8 +117,7 @@ class Promo
      *
      * @return string
      */
-    public function getPromoTitulo()
-    {
+    public function getPromoTitulo() {
         return $this->promoTitulo;
     }
 
@@ -133,8 +128,7 @@ class Promo
      *
      * @return Promo
      */
-    public function setPromoPrecio($promoPrecio)
-    {
+    public function setPromoPrecio($promoPrecio) {
         $this->promoPrecio = $promoPrecio;
 
         return $this;
@@ -145,8 +139,7 @@ class Promo
      *
      * @return float
      */
-    public function getPromoPrecio()
-    {
+    public function getPromoPrecio() {
         return $this->promoPrecio;
     }
 
@@ -157,8 +150,7 @@ class Promo
      *
      * @return Promo
      */
-    public function setPromoDescuento($promoDescuento)
-    {
+    public function setPromoDescuento($promoDescuento) {
         $this->promoDescuento = $promoDescuento;
 
         return $this;
@@ -169,8 +161,7 @@ class Promo
      *
      * @return integer
      */
-    public function getPromoDescuento()
-    {
+    public function getPromoDescuento() {
         return $this->promoDescuento;
     }
 
@@ -181,8 +172,7 @@ class Promo
      *
      * @return Promo
      */
-    public function setPromoAlta($promoAlta)
-    {
+    public function setPromoAlta($promoAlta) {
         $this->promoAlta = $promoAlta;
 
         return $this;
@@ -193,8 +183,7 @@ class Promo
      *
      * @return integer
      */
-    public function getPromoAlta()
-    {
+    public function getPromoAlta() {
         return $this->promoAlta;
     }
 
@@ -205,8 +194,7 @@ class Promo
      *
      * @return Promo
      */
-    public function setNegocio(\EuBundle\Entity\Negocio $negocio = null)
-    {
+    public function setNegocio(\EuBundle\Entity\Negocio $negocio = null) {
         $this->negocio = $negocio;
 
         return $this;
@@ -217,8 +205,10 @@ class Promo
      *
      * @return \EuBundle\Entity\Negocio
      */
-    public function getNegocio()
-    {
+    public function getNegocio() {
         return $this->negocio;
     }
+
+
+
 }

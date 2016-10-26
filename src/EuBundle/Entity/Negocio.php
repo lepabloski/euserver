@@ -3,6 +3,7 @@
 namespace EuBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Negocio
@@ -131,6 +132,27 @@ class Negocio {
      * })
      */
     private $ciudad;
+    
+      /**
+     * @ORM\OneToMany(targetEntity="Promo", mappedBy="negocio")
+     */
+    protected $promo;
+ 
+    public function __construct()
+    {
+        $this->promo = new ArrayCollection();
+    }
+    
+    public function addPromo(\EuBundle\Entity\Promo $promo){
+		$this->promo[] = $promo;
+		
+		return $this;
+	}
+	
+	
+	public function getPromo(){
+		return $this->promo;
+	}
 
     /**
      * Get id

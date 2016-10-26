@@ -6,6 +6,7 @@
         <h1>Promos</h1>
     </div>
     <br />
+      {% if promos  %}
     <div class="table-responsive" >
         <table id="grilla" class="table table-striped tablesorter table-no-bordered"
                data-toggle="table"
@@ -39,10 +40,13 @@
             </tbody>
         </table>
     </div>
+              {% else %}
+            <p> Usted no posee promos asociadas a sus negocios...</p>
+        {% endif %}
     <br />
-    <div class="row text-center">
+ {#   <div class="row text-center">
 
-        <a class="btn btn-success"  href="{{ path('promo_new') }}">Crear un nuevo negocio</a>
+        <a class="btn btn-success"  href="{{ path('promo_new') }}">Crear una promo</a>
 
-    </div>
+    </div>#}
 {% endblock %}

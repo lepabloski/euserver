@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use EuBundle\Entity\Negocio;
 use EuBundle\Form\NegocioType;
 use EuBundle\Entity\Usuario;
-use EuBundle\Entity\User;
+use EuBundle\Entity\Promo;
 use EuBundle\Entity\NegocioUsuarioAdmin;
 
 /**
@@ -33,16 +33,19 @@ class NegocioController extends Controller {
         $usuario = $em->getRepository('EuBundle:Usuario')->findOneBy(array('fosUser' => $this->getUser()));
         $negocioUsuario = $em->getRepository('EuBundle:NegocioUsuarioAdmin')->findBy(array('usuario' => $usuario));
         $negocios = array();
-        if (count($negocioUsuario) != 0) {
 
+
+        if (count($negocioUsuario) != 0) {
             foreach ($negocioUsuario as $negocioUsu) {
-                $negocios[] = $em->getRepository('EuBundle:Negocio')->findOneBy(array('id' => $negocioUsu->getNegocio()));
+                $negocio = $em->getRepository('EuBundle:Negocio')->findOneBy(array('id' => $negocioUsu->getNegocio()));
+                if ($negocio) {
+                    $negocios[] = $negocio;
+                }
             }
         }
 
-
         return $this->render('negocio/index.html.twig', array(
-                    'negocios' => $negocios,
+                    'negocios' => $negocios
         ));
     }
 
@@ -68,11 +71,16 @@ class NegocioController extends Controller {
             $em->persist($negocio);
 
             $userFos = $em->getRepository('EuBundle:User')->findOneBy(array('id' => $this->getUser()));
+            $usuarioEsta = $em->getRepository('EuBundle:Usuario')->findOneBy(array('fosUser' => $userFos));
 
-            $usuario = new Usuario();
-            $usuario->setFosUser($userFos);
-            $usuario->setTipoUsuarioId(2); //usuario Admin Negocio tipo 2
-            $em->persist($usuario);
+            if (!$usuarioEsta) {
+                $usuario = new Usuario();
+                $usuario->setFosUser($userFos);
+                $usuario->setTipoUsuarioId(2); //usuario Admin Negocio tipo 2
+                $em->persist($usuario);
+            } else {
+                $usuario = $usuarioEsta;
+            }
 
             $negocioUsuarioAdmin = new NegocioUsuarioAdmin();
             $negocioUsuarioAdmin->setNegocio($negocio);
@@ -114,7 +122,13 @@ class NegocioController extends Controller {
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $negocio->setNegocioFoto('');
+            $negocio->setNegocioFecRegistro($this->fechaHoy);
+            $negocio->setUsuCreaId($this->getUser());
+            $negocio->setNegocioFecMod($this->fechaHoy);
+            $negocio->setNegocioAlta(1);
             $em->persist($negocio);
+
             $em->flush();
 
             return $this->redirectToRoute('negocio_edit', array('id' => $negocio->getId()));

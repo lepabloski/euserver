@@ -37,6 +37,12 @@
 
                                     <a class="btn btn-danger"  href="{{ path('negocio_edit', { 'id': negocio.id }) }}">Editar</a>
 
+                                    {% if negocio.getPromo[0] is defined %}
+                               
+                                        <a class="btn btn-default"  href="{{ path('promo_edit', { 'id': negocio.getPromo[0].id }) }}">Promo</a>
+                                    {% else %}
+                                        <a class="btn btn-default"  href="{{ path('promo_new', { 'id': negocio.id }) }}">Promo</a>
+                                    {% endif %}
                                 </td>
                             </tr>
 
@@ -50,7 +56,7 @@
         <br />
         <div class="row text-center">
 
-            <a class="btn btn-success"  href="{{ path('negocio_new') }}">Crear un nuevo negocio</a>
+            <a class="btn btn-success"  href="{{ path('negocio_new') }}">Crear un negocio</a>
 
         </div>
     </div>

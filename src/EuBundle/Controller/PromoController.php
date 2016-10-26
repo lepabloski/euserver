@@ -4,7 +4,6 @@ namespace EuBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use EuBundle\Entity\Promo;
 use EuBundle\Form\PromoType;
 
@@ -12,20 +11,30 @@ use EuBundle\Form\PromoType;
  * Promo controller.
  *
  */
-class PromoController extends Controller
-{
+class PromoController extends Controller {
+
     /**
      * Lists all Promo entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
+        $promos = array();
 
-        $promos = $em->getRepository('EuBundle:Promo')->findAll();
+        $usuario = $em->getRepository('EuBundle:Usuario')->findOneBy(array('fosUser' => $this->getUser()));
+        $negociosUsuarioAdmin = $em->getRepository("EuBundle:NegocioUsuarioAdmin")->findBy(array('usuario' => $usuario));
+
+        if (count($negociosUsuarioAdmin) != 0) {
+            foreach ($negociosUsuarioAdmin as $negoUsuAdmin) {
+                $promo = $em->getRepository("EuBundle:Promo")->findOneBy(array('negocio' => $negoUsuAdmin->getNegocio()));
+                if (count($promo) != 0) {
+                    $promos[] = $promo;
+                }
+            }
+        }
 
         return $this->render('promo/index.html.twig', array(
-            'promos' => $promos,
+                    'promos' => $promos,
         ));
     }
 
@@ -33,14 +42,15 @@ class PromoController extends Controller
      * Creates a new Promo entity.
      *
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request, $id) {
         $promo = new Promo();
         $form = $this->createForm('EuBundle\Form\PromoType', $promo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();            
+            $negocio = $em->getRepository("EuBundle:Negocio")->findOneBy(array('id' => $id));
+            $promo->setNegocio($negocio);
             $em->persist($promo);
             $em->flush();
 
@@ -48,8 +58,8 @@ class PromoController extends Controller
         }
 
         return $this->render('promo/new.html.twig', array(
-            'promo' => $promo,
-            'form' => $form->createView(),
+                    'promo' => $promo,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -57,13 +67,12 @@ class PromoController extends Controller
      * Finds and displays a Promo entity.
      *
      */
-    public function showAction(Promo $promo)
-    {
+    public function showAction(Promo $promo) {
         $deleteForm = $this->createDeleteForm($promo);
 
         return $this->render('promo/show.html.twig', array(
-            'promo' => $promo,
-            'delete_form' => $deleteForm->createView(),
+                    'promo' => $promo,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -71,8 +80,7 @@ class PromoController extends Controller
      * Displays a form to edit an existing Promo entity.
      *
      */
-    public function editAction(Request $request, Promo $promo)
-    {
+    public function editAction(Request $request, Promo $promo) {
         $deleteForm = $this->createDeleteForm($promo);
         $editForm = $this->createForm('EuBundle\Form\PromoType', $promo);
         $editForm->handleRequest($request);
@@ -86,9 +94,9 @@ class PromoController extends Controller
         }
 
         return $this->render('promo/edit.html.twig', array(
-            'promo' => $promo,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'promo' => $promo,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -96,8 +104,7 @@ class PromoController extends Controller
      * Deletes a Promo entity.
      *
      */
-    public function deleteAction(Request $request, Promo $promo)
-    {
+    public function deleteAction(Request $request, Promo $promo) {
         $form = $this->createDeleteForm($promo);
         $form->handleRequest($request);
 
@@ -117,12 +124,12 @@ class PromoController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Promo $promo)
-    {
+    private function createDeleteForm(Promo $promo) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('promo_delete', array('id' => $promo->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+                        ->setAction($this->generateUrl('promo_delete', array('id' => $promo->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
         ;
     }
+
 }

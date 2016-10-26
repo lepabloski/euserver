@@ -27,10 +27,7 @@ class PromoType extends AbstractType {
                     'attr' => array('class' => 'form-control')))
                 ->add('promoDescuento', TextType::class, array('label' => 'Descuento',
                     'attr' => array('class' => 'form-control')))
-             
-                ->add('negocio', EntityType::class, array('label' => 'Negocio',
-                    'class' => 'EuBundle:Negocio',
-                    'attr' => array('class' => 'form-control')))
+        
                 ->add('aceptar', SubmitType::class, array('label' => 'Aceptar',
                     'attr' => array('class' => ' btn btn-success')))
         ;
