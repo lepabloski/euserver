@@ -45,7 +45,7 @@
     <div class="row text-center">
 
         <a class="btn btn-info" href="{{ path('negocio_index') }}">Volver a la lista</a>
-        <a class="btn btn-warning" href="{{ path('promo_edit', { 'id': promo.id }) }}">Editar</a>
+        <a class="btn btn-warning" href="{{ path('promo_edit', { 'promoId': promo.id }) }}">Editar</a>
         {{ form_start(delete_form) }}
         <input type="submit" class="btn btn-danger" value="Borrar">
         {{ form_end(delete_form) }}

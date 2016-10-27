@@ -4,7 +4,7 @@ negocio_index:
     methods:  GET
 
 negocio_show:
-    path:     /{id}/show
+    path:     /show/{id}
     defaults: { _controller: "EuBundle:Negocio:show" }
     methods:  GET
 
@@ -14,11 +14,11 @@ negocio_new:
     methods:  [GET, POST]
 
 negocio_edit:
-    path:     /{id}/edit
+    path:     /edit/{id}
     defaults: { _controller: "EuBundle:Negocio:edit" }
     methods:  [GET, POST]
 
 negocio_delete:
-    path:     /{id}/delete
+    path:     /delete/{id}
     defaults: { _controller: "EuBundle:Negocio:delete" }
     methods:  DELETE

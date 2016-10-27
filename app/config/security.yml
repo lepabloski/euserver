@@ -31,8 +31,9 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY , requires_channel: http }
         - { path: ^/$, role: ROLE_USER , requires_channel: http }
         - { path: ^/negocio, roles: [ROLE_NEGOCIO, ROLE_ADMIN] , requires_channel: http }
-        - { path: ^/promo, role: ROLE_SUPER_ADMIN , requires_channel: http }  
-        - { path: ^/promo/new, roles: [ROLE_NEGOCIO, ROLE_SUPER_ADMIN] , requires_channel: http }  
-        - { path: ^/promo/edit, roles: [ROLE_NEGOCIO, ROLE_SUPER_ADMIN] , requires_channel: http }  
-        - { path: ^/promo/show, roles: [ROLE_NEGOCIO, ROLE_SUPER_ADMIN] , requires_channel: http }  
+        - { path: ^/promo/new/$, roles: [ROLE_NEGOCIO, ROLE_SUPER_ADMIN] , requires_channel: http }  
+        - { path: ^/promo/edit/$, roles: [ROLE_NEGOCIO, ROLE_SUPER_ADMIN] , requires_channel: http }  
+        - { path: ^/promo/show/$, roles: [ROLE_NEGOCIO, ROLE_SUPER_ADMIN] , requires_channel: http }  
+        - { path: ^/promo/$, role: ROLE_SUPER_ADMIN , requires_channel: http }  
+        
         - { path: ^/admin/, role: ROLE_ADMIN , requires_channel: http }

@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use EuBundle\Entity\Negocio;
 use EuBundle\Form\NegocioType;
 use EuBundle\Entity\Usuario;
-use EuBundle\Entity\Promo;
 use EuBundle\Entity\NegocioUsuarioAdmin;
 
 /**
@@ -21,7 +20,6 @@ class NegocioController extends Controller {
      *
      */
     private $fechaHoy;
-    private $usuario;
 
     public function __construct() {
         $this->fechaHoy = new \DateTime("now");
@@ -33,7 +31,6 @@ class NegocioController extends Controller {
         $usuario = $em->getRepository('EuBundle:Usuario')->findOneBy(array('fosUser' => $this->getUser()));
         $negocioUsuario = $em->getRepository('EuBundle:NegocioUsuarioAdmin')->findBy(array('usuario' => $usuario));
         $negocios = array();
-
 
         if (count($negocioUsuario) != 0) {
             foreach ($negocioUsuario as $negocioUsu) {

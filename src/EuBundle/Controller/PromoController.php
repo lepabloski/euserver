@@ -31,14 +31,14 @@ class PromoController extends Controller {
      * Creates a new Promo entity.
      *
      */
-    public function newAction(Request $request, $id) {
+    public function newAction(Request $request, $negocioId) {
         $promo = new Promo();
         $form = $this->createForm('EuBundle\Form\PromoType', $promo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $negocio = $em->getRepository("EuBundle:Negocio")->findOneBy(array('id' => $id));
+            $negocio = $em->getRepository("EuBundle:Negocio")->findOneBy(array('id' => $negocioId));
             $promo->setNegocio($negocio);
             $em->persist($promo);
             $em->flush();
@@ -69,24 +69,54 @@ class PromoController extends Controller {
      * Displays a form to edit an existing Promo entity.
      *
      */
-    public function editAction(Request $request, Promo $promo) {
-        $deleteForm = $this->createDeleteForm($promo);
-        $editForm = $this->createForm('EuBundle\Form\PromoType', $promo);
-        $editForm->handleRequest($request);
+    public function editAction(Request $request, $promoId) {
+        
+        $esDelUsuario = false;
+        $em = $this->getDoctrine()->getManager();
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($promo);
-            $em->flush();
+        $promo = $em->getRepository('EuBundle:Promo')->findOneBy(array('id' => $promoId));
+        if ($promo) {
 
-            return $this->redirectToRoute('promo_edit', array('id' => $promo->getId()));
+            $usuario = $em->getRepository('EuBundle:Usuario')->findOneBy(array('fosUser' => $this->getUser()));
+            $negocioUsuario = $em->getRepository('EuBundle:NegocioUsuarioAdmin')->findBy(array('usuario' => $usuario));
+
+            if (count($negocioUsuario) != 0) {
+                foreach ($negocioUsuario as $negocioUsu) {
+                    $negocio = $em->getRepository('EuBundle:Negocio')->findOneBy(array('id' => $negocioUsu->getNegocio()));
+                    if ($negocio) {
+                        $negocios[] = $negocio;
+                    }
+                }
+
+                foreach ($negocios as $negocio) {
+                    if ($promo && ($promo->getNegocio() == $negocio)) {
+                        $esDelUsuario = true;
+                    }
+                }
+            }
         }
+        
+        if ($esDelUsuario) {
+            $deleteForm = $this->createDeleteForm($promo);
+            $editForm = $this->createForm('EuBundle\Form\PromoType', $promo);
+            $editForm->handleRequest($request);
 
-        return $this->render('promo/edit.html.twig', array(
-                    'promo' => $promo,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
-        ));
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+                $em->persist($promo);
+                $em->flush();
+
+                return $this->redirectToRoute('promo_edit', array('promoId' => $promo->getId()));
+            }
+
+            return $this->render('promo/edit.html.twig', array(
+                        'promo' => $promo,
+                        'edit_form' => $editForm->createView(),
+                        'delete_form' => $deleteForm->createView(),
+            ));
+        } else {
+            return $this->redirectToRoute('negocio_index');
+        }
     }
 
     /**

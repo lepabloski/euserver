@@ -33,7 +33,7 @@
                         <td class="text-center">{{ promo.negocio.negocioNombre }}</td>
                         <td class="text-center">
                             <a class="btn btn-warning" href="{{ path('promo_show', { 'id': promo.id }) }}">Detalles</a> 
-                            <a class="btn btn-danger"  href="{{ path('promo_edit', { 'id': promo.id }) }}">Editar</a>
+                            <a class="btn btn-danger"  href="{{ path('promo_edit', { 'promoId': promo.id }) }}">Editar</a>
                         </td>                         
                     </tr>
                 {% endfor %}

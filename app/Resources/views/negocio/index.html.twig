@@ -39,9 +39,9 @@
 
                                     {% if negocio.getPromo[0] is defined %}
                                
-                                        <a class="btn btn-default"  href="{{ path('promo_edit', { 'id': negocio.getPromo[0].id }) }}">Promo</a>
+                                        <a class="btn btn-default"  href="{{ path('promo_edit', { 'promoId': negocio.getPromo[0].id }) }}">Promo</a>
                                     {% else %}
-                                        <a class="btn btn-default"  href="{{ path('promo_new', { 'id': negocio.id }) }}">Promo</a>
+                                        <a class="btn btn-default"  href="{{ path('promo_new', { 'negocioId': negocio.id }) }}">Promo</a>
                                     {% endif %}
                                 </td>
                             </tr>
