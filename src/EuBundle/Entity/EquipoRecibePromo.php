@@ -77,7 +77,7 @@ class EquipoRecibePromo
     public function setFecRecepcion($fecRecepcion)
     {
         $this->fecRecepcion = $fecRecepcion;
-
+    
         return $this;
     }
 
@@ -101,7 +101,7 @@ class EquipoRecibePromo
     public function setAlta($alta)
     {
         $this->alta = $alta;
-
+    
         return $this;
     }
 
@@ -125,7 +125,7 @@ class EquipoRecibePromo
     public function setEquipo(\EuBundle\Entity\Equipo $equipo = null)
     {
         $this->equipo = $equipo;
-
+    
         return $this;
     }
 
@@ -149,7 +149,7 @@ class EquipoRecibePromo
     public function setPromo(\EuBundle\Entity\Promo $promo = null)
     {
         $this->promo = $promo;
-
+    
         return $this;
     }
 

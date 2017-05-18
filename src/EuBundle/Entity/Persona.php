@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Persona
  *
- * @ORM\Table(name="persona", indexes={@ORM\Index(name="IDX_51E5B69B2D1C5D83", columns={"usu_id"}), @ORM\Index(name="IDX_51E5B69BE8608214", columns={"ciudad_id"})})
+ * @ORM\Table(name="persona", indexes={@ORM\Index(name="IDX_51E5B69BE8608214", columns={"ciudad_id"})})
  * @ORM\Entity
  */
 class Persona
@@ -31,7 +31,7 @@ class Persona
     /**
      * @var string
      *
-     * @ORM\Column(name="pers_dni", type="string", length=15, nullable=false)
+     * @ORM\Column(name="pers_dni", type="string", length=15, nullable=true)
      */
     private $persDni;
 
@@ -45,21 +45,21 @@ class Persona
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="pers_fec_nac", type="date", nullable=false)
+     * @ORM\Column(name="pers_fec_nac", type="date", nullable=true)
      */
     private $persFecNac;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pers_sexo", type="string", length=10, nullable=false)
+     * @ORM\Column(name="pers_sexo", type="string", length=10, nullable=true)
      */
     private $persSexo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pers_domicilio", type="string", length=60, nullable=false)
+     * @ORM\Column(name="pers_domicilio", type="string", length=60, nullable=true)
      */
     private $persDomicilio;
 
@@ -76,16 +76,6 @@ class Persona
      * @ORM\Column(name="pers_alta", type="integer", nullable=true)
      */
     private $persAlta = '1';
-
-    /**
-     * @var \Usuario
-     *
-     * @ORM\ManyToOne(targetEntity="Usuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="usu_id", referencedColumnName="id")
-     * })
-     */
-    private $usu;
 
     /**
      * @var \Ciudad
@@ -119,7 +109,7 @@ class Persona
     public function setPersNombre($persNombre)
     {
         $this->persNombre = $persNombre;
-
+    
         return $this;
     }
 
@@ -143,7 +133,7 @@ class Persona
     public function setPersDni($persDni)
     {
         $this->persDni = $persDni;
-
+    
         return $this;
     }
 
@@ -167,7 +157,7 @@ class Persona
     public function setPersApellido($persApellido)
     {
         $this->persApellido = $persApellido;
-
+    
         return $this;
     }
 
@@ -191,7 +181,7 @@ class Persona
     public function setPersFecNac($persFecNac)
     {
         $this->persFecNac = $persFecNac;
-
+    
         return $this;
     }
 
@@ -215,7 +205,7 @@ class Persona
     public function setPersSexo($persSexo)
     {
         $this->persSexo = $persSexo;
-
+    
         return $this;
     }
 
@@ -239,7 +229,7 @@ class Persona
     public function setPersDomicilio($persDomicilio)
     {
         $this->persDomicilio = $persDomicilio;
-
+    
         return $this;
     }
 
@@ -263,7 +253,7 @@ class Persona
     public function setPersFechaMod($persFechaMod)
     {
         $this->persFechaMod = $persFechaMod;
-
+    
         return $this;
     }
 
@@ -287,7 +277,7 @@ class Persona
     public function setPersAlta($persAlta)
     {
         $this->persAlta = $persAlta;
-
+    
         return $this;
     }
 
@@ -302,30 +292,6 @@ class Persona
     }
 
     /**
-     * Set usu
-     *
-     * @param \EuBundle\Entity\Usuario $usu
-     *
-     * @return Persona
-     */
-    public function setUsu(\EuBundle\Entity\Usuario $usu = null)
-    {
-        $this->usu = $usu;
-
-        return $this;
-    }
-
-    /**
-     * Get usu
-     *
-     * @return \EuBundle\Entity\Usuario
-     */
-    public function getUsu()
-    {
-        return $this->usu;
-    }
-
-    /**
      * Set ciudad
      *
      * @param \EuBundle\Entity\Ciudad $ciudad
@@ -335,7 +301,7 @@ class Persona
     public function setCiudad(\EuBundle\Entity\Ciudad $ciudad = null)
     {
         $this->ciudad = $ciudad;
-
+    
         return $this;
     }
 

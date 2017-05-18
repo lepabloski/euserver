@@ -67,7 +67,7 @@ class Provincia
     public function setProvinciaNombre($provinciaNombre)
     {
         $this->provinciaNombre = $provinciaNombre;
-
+    
         return $this;
     }
 
@@ -91,7 +91,7 @@ class Provincia
     public function setProvinciaAlta($provinciaAlta)
     {
         $this->provinciaAlta = $provinciaAlta;
-
+    
         return $this;
     }
 
@@ -115,7 +115,7 @@ class Provincia
     public function setPais(\EuBundle\Entity\Pais $pais = null)
     {
         $this->pais = $pais;
-
+    
         return $this;
     }
 
