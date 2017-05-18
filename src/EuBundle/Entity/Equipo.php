@@ -64,7 +64,7 @@ class Equipo
     public function setEquipoMac($equipoMac)
     {
         $this->equipoMac = $equipoMac;
-
+    
         return $this;
     }
 
@@ -88,7 +88,7 @@ class Equipo
     public function setEquipoFecMod($equipoFecMod)
     {
         $this->equipoFecMod = $equipoFecMod;
-
+    
         return $this;
     }
 
@@ -112,7 +112,7 @@ class Equipo
     public function setEquipoAlta($equipoAlta)
     {
         $this->equipoAlta = $equipoAlta;
-
+    
         return $this;
     }
 

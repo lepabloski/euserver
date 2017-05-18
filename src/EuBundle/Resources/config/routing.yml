@@ -3,8 +3,14 @@ eu_negocio:
     prefix:   /negocio
 
 eu_homepage:
-    path:     /
-    defaults: { _controller: EuBundle:EU:index }
+    path:     /insertar
+    defaults: { _controller: EuBundle:EU:insert }
+    methods: [POST]
+    
+eu_login:
+    path:     /login
+    defaults: { _controller: EuBundle:EU:login }    
+    methods: [POST]
 
 eu_promo:
     resource: "@EuBundle/Resources/config/routing/promo.yml"
@@ -13,7 +19,7 @@ eu_promo:
 eu_datos:
     path:     /eu/{lang}/{uuid}
     defaults: { _controller: "EuBundle:EU:negocios", uuid:1 } 
-    methods: [GET]
+    methods: [POST]
     requirements:
 #        latitud: "[\w-]+"
 #        longitud: "[\w-]+"       

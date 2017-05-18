@@ -3,16 +3,15 @@
 namespace EuBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Negocio
  *
- * @ORM\Table(name="negocio", indexes={@ORM\Index(name="negocio_sucu_id", columns={"negocio_sucu_id"}), @ORM\Index(name="ciudad_id", columns={"ciudad_id"}), @ORM\Index(name="usu_crea_id", columns={"usu_crea_id"})})
+ * @ORM\Table(name="negocio", indexes={@ORM\Index(name="negocio_sucu_id", columns={"negocio_sucu_id"}), @ORM\Index(name="ciudad_id", columns={"ciudad_id"}), @ORM\Index(name="usu_crea_id", columns={"usu_crea_id"}), @ORM\Index(name="categoria_id", columns={"categoria_id"})})
  * @ORM\Entity
  */
-class Negocio {
-
+class Negocio
+{
     /**
      * @var integer
      *
@@ -93,13 +92,6 @@ class Negocio {
     private $negocioFecRegistro;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="usu_crea_id", type="integer", nullable=true)
-     */
-    private $usuCreaId;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="negocio_fec_mod", type="datetime", nullable=false)
@@ -132,34 +124,36 @@ class Negocio {
      * })
      */
     private $ciudad;
-    
-      /**
-     * @ORM\OneToMany(targetEntity="Promo", mappedBy="negocio")
+
+    /**
+     * @var \Categoria
+     *
+     * @ORM\ManyToOne(targetEntity="Categoria")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
+     * })
      */
-    protected $promo;
- 
-    public function __construct()
-    {
-        $this->promo = new ArrayCollection();
-    }
-    
-    public function addPromo(\EuBundle\Entity\Promo $promo){
-		$this->promo[] = $promo;
-		
-		return $this;
-	}
-	
-	
-	public function getPromo(){
-		return $this->promo;
-	}
+    private $categoria;
+
+    /**
+     * @var \Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usu_crea_id", referencedColumnName="id")
+     * })
+     */
+    private $usuCrea;
+
+
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -170,9 +164,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioNombre($negocioNombre) {
+    public function setNegocioNombre($negocioNombre)
+    {
         $this->negocioNombre = $negocioNombre;
-
+    
         return $this;
     }
 
@@ -181,7 +176,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioNombre() {
+    public function getNegocioNombre()
+    {
         return $this->negocioNombre;
     }
 
@@ -192,9 +188,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioDomicilio($negocioDomicilio) {
+    public function setNegocioDomicilio($negocioDomicilio)
+    {
         $this->negocioDomicilio = $negocioDomicilio;
-
+    
         return $this;
     }
 
@@ -203,7 +200,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioDomicilio() {
+    public function getNegocioDomicilio()
+    {
         return $this->negocioDomicilio;
     }
 
@@ -214,9 +212,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioTelefono($negocioTelefono) {
+    public function setNegocioTelefono($negocioTelefono)
+    {
         $this->negocioTelefono = $negocioTelefono;
-
+    
         return $this;
     }
 
@@ -225,7 +224,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioTelefono() {
+    public function getNegocioTelefono()
+    {
         return $this->negocioTelefono;
     }
 
@@ -236,9 +236,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioCelular($negocioCelular) {
+    public function setNegocioCelular($negocioCelular)
+    {
         $this->negocioCelular = $negocioCelular;
-
+    
         return $this;
     }
 
@@ -247,7 +248,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioCelular() {
+    public function getNegocioCelular()
+    {
         return $this->negocioCelular;
     }
 
@@ -258,9 +260,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioEmail($negocioEmail) {
+    public function setNegocioEmail($negocioEmail)
+    {
         $this->negocioEmail = $negocioEmail;
-
+    
         return $this;
     }
 
@@ -269,7 +272,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioEmail() {
+    public function getNegocioEmail()
+    {
         return $this->negocioEmail;
     }
 
@@ -280,9 +284,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioNomDuenio($negocioNomDuenio) {
+    public function setNegocioNomDuenio($negocioNomDuenio)
+    {
         $this->negocioNomDuenio = $negocioNomDuenio;
-
+    
         return $this;
     }
 
@@ -291,7 +296,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioNomDuenio() {
+    public function getNegocioNomDuenio()
+    {
         return $this->negocioNomDuenio;
     }
 
@@ -302,9 +308,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioGpsLatitud($negocioGpsLatitud) {
+    public function setNegocioGpsLatitud($negocioGpsLatitud)
+    {
         $this->negocioGpsLatitud = $negocioGpsLatitud;
-
+    
         return $this;
     }
 
@@ -313,7 +320,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioGpsLatitud() {
+    public function getNegocioGpsLatitud()
+    {
         return $this->negocioGpsLatitud;
     }
 
@@ -324,9 +332,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioGpsLongitud($negocioGpsLongitud) {
+    public function setNegocioGpsLongitud($negocioGpsLongitud)
+    {
         $this->negocioGpsLongitud = $negocioGpsLongitud;
-
+    
         return $this;
     }
 
@@ -335,7 +344,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioGpsLongitud() {
+    public function getNegocioGpsLongitud()
+    {
         return $this->negocioGpsLongitud;
     }
 
@@ -346,9 +356,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioFoto($negocioFoto) {
+    public function setNegocioFoto($negocioFoto)
+    {
         $this->negocioFoto = $negocioFoto;
-
+    
         return $this;
     }
 
@@ -357,7 +368,8 @@ class Negocio {
      *
      * @return string
      */
-    public function getNegocioFoto() {
+    public function getNegocioFoto()
+    {
         return $this->negocioFoto;
     }
 
@@ -368,9 +380,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioFecRegistro($negocioFecRegistro) {
+    public function setNegocioFecRegistro($negocioFecRegistro)
+    {
         $this->negocioFecRegistro = $negocioFecRegistro;
-
+    
         return $this;
     }
 
@@ -379,30 +392,9 @@ class Negocio {
      *
      * @return \DateTime
      */
-    public function getNegocioFecRegistro() {
+    public function getNegocioFecRegistro()
+    {
         return $this->negocioFecRegistro;
-    }
-
-    /**
-     * Set usuCreaId
-     *
-     * @param integer $usuCreaId
-     *
-     * @return Negocio
-     */
-    public function setUsuCreaId($usuCreaId) {
-        $this->usuCreaId = $usuCreaId;
-
-        return $this;
-    }
-
-    /**
-     * Get usuCreaId
-     *
-     * @return integer
-     */
-    public function getUsuCreaId() {
-        return $this->usuCreaId;
     }
 
     /**
@@ -412,9 +404,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioFecMod($negocioFecMod) {
+    public function setNegocioFecMod($negocioFecMod)
+    {
         $this->negocioFecMod = $negocioFecMod;
-
+    
         return $this;
     }
 
@@ -423,7 +416,8 @@ class Negocio {
      *
      * @return \DateTime
      */
-    public function getNegocioFecMod() {
+    public function getNegocioFecMod()
+    {
         return $this->negocioFecMod;
     }
 
@@ -434,9 +428,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioAlta($negocioAlta) {
+    public function setNegocioAlta($negocioAlta)
+    {
         $this->negocioAlta = $negocioAlta;
-
+    
         return $this;
     }
 
@@ -445,7 +440,8 @@ class Negocio {
      *
      * @return integer
      */
-    public function getNegocioAlta() {
+    public function getNegocioAlta()
+    {
         return $this->negocioAlta;
     }
 
@@ -456,9 +452,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setNegocioSucu(\EuBundle\Entity\Negocio $negocioSucu = null) {
+    public function setNegocioSucu(\EuBundle\Entity\Negocio $negocioSucu = null)
+    {
         $this->negocioSucu = $negocioSucu;
-
+    
         return $this;
     }
 
@@ -467,7 +464,8 @@ class Negocio {
      *
      * @return \EuBundle\Entity\Negocio
      */
-    public function getNegocioSucu() {
+    public function getNegocioSucu()
+    {
         return $this->negocioSucu;
     }
 
@@ -478,9 +476,10 @@ class Negocio {
      *
      * @return Negocio
      */
-    public function setCiudad(\EuBundle\Entity\Ciudad $ciudad = null) {
+    public function setCiudad(\EuBundle\Entity\Ciudad $ciudad = null)
+    {
         $this->ciudad = $ciudad;
-
+    
         return $this;
     }
 
@@ -489,12 +488,56 @@ class Negocio {
      *
      * @return \EuBundle\Entity\Ciudad
      */
-    public function getCiudad() {
+    public function getCiudad()
+    {
         return $this->ciudad;
     }
 
-    public function __toString() {
-        return $this->negocioNombre;
+    /**
+     * Set categoria
+     *
+     * @param \EuBundle\Entity\Categoria $categoria
+     *
+     * @return Negocio
+     */
+    public function setCategoria(\EuBundle\Entity\Categoria $categoria = null)
+    {
+        $this->categoria = $categoria;
+    
+        return $this;
     }
 
+    /**
+     * Get categoria
+     *
+     * @return \EuBundle\Entity\Categoria
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    /**
+     * Set usuCrea
+     *
+     * @param \EuBundle\Entity\Usuario $usuCrea
+     *
+     * @return Negocio
+     */
+    public function setUsuCrea(\EuBundle\Entity\Usuario $usuCrea = null)
+    {
+        $this->usuCrea = $usuCrea;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuCrea
+     *
+     * @return \EuBundle\Entity\Usuario
+     */
+    public function getUsuCrea()
+    {
+        return $this->usuCrea;
+    }
 }

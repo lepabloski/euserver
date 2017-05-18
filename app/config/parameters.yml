@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.1.1.0
+#    database_host: 127.1.1.0
+    database_port: null
+    database_name: appgeopromo
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 0ceaa1cc81e2a33e00c7aad141113d942b677e55

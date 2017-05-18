@@ -67,7 +67,7 @@ class Ciudad
     public function setCiudadNombre($ciudadNombre)
     {
         $this->ciudadNombre = $ciudadNombre;
-
+    
         return $this;
     }
 
@@ -91,7 +91,7 @@ class Ciudad
     public function setCiudadAlta($ciudadAlta)
     {
         $this->ciudadAlta = $ciudadAlta;
-
+    
         return $this;
     }
 
@@ -115,7 +115,7 @@ class Ciudad
     public function setProvincia(\EuBundle\Entity\Provincia $provincia = null)
     {
         $this->provincia = $provincia;
-
+    
         return $this;
     }
 
@@ -127,10 +127,5 @@ class Ciudad
     public function getProvincia()
     {
         return $this->provincia;
-    }
-    
-     public function __toString()
-    {
-        return $this->ciudadNombre;
     }
 }

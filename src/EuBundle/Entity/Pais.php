@@ -57,7 +57,7 @@ class Pais
     public function setPaisNombre($paisNombre)
     {
         $this->paisNombre = $paisNombre;
-
+    
         return $this;
     }
 
@@ -81,7 +81,7 @@ class Pais
     public function setPaisAlta($paisAlta)
     {
         $this->paisAlta = $paisAlta;
-
+    
         return $this;
     }
 

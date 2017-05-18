@@ -4,6 +4,7 @@ namespace EuBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -12,8 +13,98 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class EUController extends Controller {
 
+     //controlador para ver el pass encriptado
+    public function insertAction(Request $request)
+    {
+        $helpers = $this->get("app.helpers");
+        $jwt_auth = $this->get("app.jwt_auth");
+        
+        $json = $request->get("json", null);
+        
+        if($json != null){
+            $params = json_decode($json);
+            
+            $userPass = (isset($params->userPass)) ? $params->userPass : null;
+            
+            // Cifrar userPass
+            $pwd = hash('sha256', $userPass);
+            return $helpers->json(array(
+            "status" => "error",
+            "data" => $pwd
+            ));
+        }
+    }
+    
+    //controlador de login del usuario
+    public function loginAction(Request $request) {
+        $helpers = $this->get("app.helpers");
+        $jwt_auth = $this->get("app.jwt_auth");
+
+        // Recibir json por POST
+        $json = $request->get("json", null);
+
+        if ($json != null) {
+            $params = json_decode($json);
+
+            $userName = (isset($params->userName)) ? $params->userName : null;
+            $userPass = (isset($params->userPass)) ? $params->userPass : null;
+            $getHash = (isset($params->gethash)) ? $params->gethash : null;
+
+            // Cifrar userPass
+            $pwd = hash('sha256', $userPass);
+
+            if ($userName != null && $userPass != null) {
+
+                if ($getHash == null || $getHash == "false") {
+                    $signup = $jwt_auth->signup($userName, $pwd);
+                } else {
+                    $signup = $jwt_auth->signup($userName, $pwd, true);
+                }
+
+                return new JsonResponse($signup);
+            } else {
+                return $helpers->json(array(
+                            "status" => "error",
+                            "data" => "Login no valido!!"
+                ));
+            }
+        } else {
+            return $helpers->json(array(
+                        "status" => "error",
+                        "data" => "Enviando json por post !!"
+            ));
+        }
+    }
+
     public function indexAction(Request $request) {
-        return $this->render('EuBundle:Eu:index.html.twig', array("deg" => deg2rad(1), "rad" => rad2deg(1)));
+        $helpers = $this->get("app.helpers");
+        $hash = $request->get("authorization", null);
+        $authCheck = $helpers->authCheck($hash);
+        if ($authCheck == true) {
+            $identity = $helpers->authCheck($hash, true);
+            $json = $request->get("json", null);
+
+            $data = array(
+                "status" => "error",
+                "code" => 400,
+                "msg" => "No existe"
+            );
+            if ($json != null) {
+
+                $em = $this->getDoctrine()->getManager();
+                $json = json_decode($json);
+                $idUsuario = (isset($json->id)) ? $json->id : null;
+
+                $usuario = $em->getRepository('BackendBundle:Users')->findOneBy(array('id' => $idUsuario));
+            }
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 400,
+                "msg" => "AutorizaciÃ³n no valida"
+            );
+        }
+        return $helpers->json($data);
     }
 
     public function negociosAction(Request $request, $uuid) {

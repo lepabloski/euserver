@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Usuario
  *
- * @ORM\Table(name="usuario", indexes={@ORM\Index(name="pers_id", columns={"pers_id"}), @ORM\Index(name="fos_user", columns={"fos_user"})})
+ * @ORM\Table(name="usuario", indexes={@ORM\Index(name="pers_id", columns={"pers_id"}), @ORM\Index(name="usu_usu_crea", columns={"usu_usu_crea"})})
  * @ORM\Entity
  */
 class Usuario
@@ -28,7 +28,34 @@ class Usuario
      */
     private $tipoUsuarioId;
 
-   
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usu_email", type="string", length=30, nullable=false)
+     */
+    private $usuEmail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="usu_clave", type="string", length=70, nullable=false)
+     */
+    private $usuClave;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="usu_alta", type="integer", nullable=false)
+     */
+    private $usuAlta;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="usu_fec_login", type="datetime", nullable=false)
+     */
+    private $usuFecLogin = 'CURRENT_TIMESTAMP';
+
     /**
      * @var \Persona
      *
@@ -40,14 +67,15 @@ class Usuario
     private $pers;
 
     /**
-     * @var \User
+     * @var \Usuario
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Usuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fos_user", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="usu_usu_crea", referencedColumnName="id")
      * })
      */
-    private $fosUser;
+    private $usuUsuCrea;
+
 
 
     /**
@@ -70,7 +98,7 @@ class Usuario
     public function setTipoUsuarioId($tipoUsuarioId)
     {
         $this->tipoUsuarioId = $tipoUsuarioId;
-
+    
         return $this;
     }
 
@@ -84,7 +112,102 @@ class Usuario
         return $this->tipoUsuarioId;
     }
 
-   
+    /**
+     * Set usuEmail
+     *
+     * @param string $usuEmail
+     *
+     * @return Usuario
+     */
+    public function setUsuEmail($usuEmail)
+    {
+        $this->usuEmail = $usuEmail;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuEmail
+     *
+     * @return string
+     */
+    public function getUsuEmail()
+    {
+        return $this->usuEmail;
+    }
+
+    /**
+     * Set usuClave
+     *
+     * @param string $usuClave
+     *
+     * @return Usuario
+     */
+    public function setUsuClave($usuClave)
+    {
+        $this->usuClave = $usuClave;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuClave
+     *
+     * @return string
+     */
+    public function getUsuClave()
+    {
+        return $this->usuClave;
+    }
+
+    /**
+     * Set usuAlta
+     *
+     * @param integer $usuAlta
+     *
+     * @return Usuario
+     */
+    public function setUsuAlta($usuAlta)
+    {
+        $this->usuAlta = $usuAlta;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuAlta
+     *
+     * @return integer
+     */
+    public function getUsuAlta()
+    {
+        return $this->usuAlta;
+    }
+
+    /**
+     * Set usuFecLogin
+     *
+     * @param \DateTime $usuFecLogin
+     *
+     * @return Usuario
+     */
+    public function setUsuFecLogin($usuFecLogin)
+    {
+        $this->usuFecLogin = $usuFecLogin;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuFecLogin
+     *
+     * @return \DateTime
+     */
+    public function getUsuFecLogin()
+    {
+        return $this->usuFecLogin;
+    }
+
     /**
      * Set pers
      *
@@ -95,7 +218,7 @@ class Usuario
     public function setPers(\EuBundle\Entity\Persona $pers = null)
     {
         $this->pers = $pers;
-
+    
         return $this;
     }
 
@@ -110,27 +233,26 @@ class Usuario
     }
 
     /**
-     * Set fosUser
+     * Set usuUsuCrea
      *
-     * @param \EuBundle\Entity\User $fosUser
+     * @param \EuBundle\Entity\Usuario $usuUsuCrea
      *
      * @return Usuario
      */
-    public function setFosUser(\EuBundle\Entity\User $fosUser = null)
+    public function setUsuUsuCrea(\EuBundle\Entity\Usuario $usuUsuCrea = null)
     {
-        $this->fosUser = $fosUser;
-
+        $this->usuUsuCrea = $usuUsuCrea;
+    
         return $this;
     }
 
     /**
-     * Get fosUser
+     * Get usuUsuCrea
      *
-     * @return \EuBundle\Entity\User
+     * @return \EuBundle\Entity\Usuario
      */
-    public function getFosUser()
+    public function getUsuUsuCrea()
     {
-        return $this->fosUser;
-    }   
-   
+        return $this->usuUsuCrea;
+    }
 }

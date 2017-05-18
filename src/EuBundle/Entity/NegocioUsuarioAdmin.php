@@ -70,7 +70,7 @@ class NegocioUsuarioAdmin
     public function setAlta($alta)
     {
         $this->alta = $alta;
-
+    
         return $this;
     }
 
@@ -94,7 +94,7 @@ class NegocioUsuarioAdmin
     public function setNegocio(\EuBundle\Entity\Negocio $negocio = null)
     {
         $this->negocio = $negocio;
-
+    
         return $this;
     }
 
@@ -118,7 +118,7 @@ class NegocioUsuarioAdmin
     public function setUsuario(\EuBundle\Entity\Usuario $usuario = null)
     {
         $this->usuario = $usuario;
-
+    
         return $this;
     }
 
@@ -130,9 +130,5 @@ class NegocioUsuarioAdmin
     public function getUsuario()
     {
         return $this->usuario;
-    }
-    
-    public function __toString() {
-          return $this->negocio->getNegocioNombre();
     }
 }
